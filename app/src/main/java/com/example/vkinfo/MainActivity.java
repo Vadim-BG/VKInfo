@@ -8,6 +8,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
+import java.net.URL;
+
+import static com.example.vkinfo.utils.NetworkUtils.generateURL;
+import static com.example.vkinfo.utils.NetworkUtils.getResponseFromURL;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText searchField;
@@ -26,7 +32,14 @@ public class MainActivity extends AppCompatActivity {
         View.OnClickListener onClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                result.setText("Кнопка была нажата!");
+                URL generatedURL = generateURL(searchField.getText().toString());
+                String response = null;
+                try {
+                     response = getResponseFromURL(generatedURL);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                result.setText(response);
             }
         };
         searchButton.setOnClickListener(onClickListener);
