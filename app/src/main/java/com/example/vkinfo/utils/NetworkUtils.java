@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.Scanner;
 
 public class NetworkUtils {
@@ -21,7 +22,7 @@ public class NetworkUtils {
                 .buildUpon()
                 .appendQueryParameter(PARAM_USER_ID, userId)
                 .appendQueryParameter(ACCESS_TOKEN,
-                        "c75718bec75718bec75718bef0c7263a82cc757c75718be99cf680b568a2c36439fb5ce")
+                        "......Вставить сгенерированный ТОКЕН.......")
                 .appendQueryParameter(PARAM_VERSION, "5.8")
                 .build();
 
@@ -48,6 +49,8 @@ public class NetworkUtils {
             } else {
                 return null;
             }
+        } catch (UnknownHostException e) {
+            return null;
         } finally {
             urlConnection.disconnect();
         }
