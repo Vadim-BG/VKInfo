@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     class VkQueryTask extends AsyncTask<URL, Void, String> {
 
         @Override
-        protected void onPreExecute(){
+        protected void onPreExecute() {
             loadingIndicator.setVisibility(View.VISIBLE);
         }
 
@@ -64,16 +64,19 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     JSONObject jsonResponse = new JSONObject(response);
                     JSONArray jsonArray = jsonResponse.getJSONArray("response");
-                    JSONObject userInfo = jsonArray.getJSONObject(0);
 
-                    fistName = userInfo.getString("first_name");
-                    lastName = userInfo.getString("last_name");
-
+                    String resultString = "";
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject userInfo = jsonArray.getJSONObject(i);
+                        fistName = userInfo.getString("first_name");
+                        lastName = userInfo.getString("last_name");
+                        resultString += "Имя: " + fistName + "\n" + "Фамилия: " + lastName
+                                + "\n\n";
+                    }
+                    result.setText(resultString);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String resultString = "Имя: " + fistName + "\n" + "Фамилия: " + lastName;
-                result.setText(resultString);
 
                 showResultTextView();
             } else {
